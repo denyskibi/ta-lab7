@@ -5,10 +5,7 @@ from typing import Optional, List
 from core.binary_tree import BinaryTree
 
 
-class TreeBuilder:
-    def __init__(self):
-        pass
-
+class TreeUtils:
     def build_tree(self, nodes: List[int]) -> Optional[BinaryTree]:
         if not nodes:
             return None

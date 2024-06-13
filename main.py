@@ -4,8 +4,7 @@ import traceback
 
 # Custom Modules
 from utils import file_utils
-from core.tree_builder import TreeBuilder
-from core.binary_tree import BinaryTree
+from core.tree_utils import TreeUtils
 
 
 def stop():
@@ -14,21 +13,21 @@ def stop():
 
 def main():
     # Create necessary class objects
-    tree_builder = TreeBuilder()
+    tree_utils = TreeUtils()
 
     try:
         # Step #1: Load nodes from the file
         loaded_nodes = file_utils.load_nodes(file_path="files/input_1000a.txt")
 
         # Step #2: Building a binary tree using loaded nodes
-        tree_root = tree_builder.build_tree(nodes=loaded_nodes)
+        tree_root = tree_utils.build_tree(nodes=loaded_nodes)
 
         # Step #3: Converting to BST
-        sorted_values = sorted(tree_builder.inorder_traversal(root=tree_root))
-        tree_builder.convert_to_bst(root=tree_root, values=sorted_values)
+        sorted_values = sorted(tree_utils.inorder_traversal(root=tree_root))
+        tree_utils.convert_to_bst(root=tree_root, values=sorted_values)
 
         # Step #4: Get leaves
-        tree_leaves = tree_builder.find_leaves(root=tree_root)
+        tree_leaves = tree_utils.find_leaves(root=tree_root)
         first_three_leaves = ' '.join(map(str, tree_leaves[:3]))
         last_three_leaves = ' '.join(map(str, tree_leaves[-3:]))
 
