@@ -7,6 +7,12 @@ from core.binary_tree import BinaryTree
 
 class TreeUtils:
     def build_tree(self, nodes: List[int]) -> Optional[BinaryTree]:
+        """
+        Побудова дерева.
+
+        :param nodes:
+        :return:
+        """
         if not nodes:
             return None
 
