@@ -5,16 +5,28 @@ import traceback
 # Custom Modules
 from utils import file_utils
 from core.tree_utils import TreeUtils
+from core.binary_tree import BinaryTree
 
 
-def stop():
+# Create necessary class objects
+tree_utils = TreeUtils()
+
+
+def stop() -> None:
     sys.exit(1)
 
 
-def main():
-    # Create necessary class objects
-    tree_utils = TreeUtils()
+def task2(tree_root: BinaryTree) -> None:
+    target_sums = [1059, 1546, 1940]
 
+    for target_sum in target_sums:
+        paths = tree_utils.find_all_paths_with_sum(root=tree_root, target_sum=target_sum)
+        for path in paths:
+            current_mono_path = ' '.join(map(str, path))
+            print(f"[INFO] Monotonic path to the sum {target_sum}: {current_mono_path}")
+
+
+def main():
     try:
         # Step #1: Load nodes from the file
         loaded_nodes = file_utils.load_nodes(file_path="files/input_1000a.txt")
@@ -35,6 +47,9 @@ def main():
         print(f"[INFO] Value in root: {tree_root.val}")
         print(f"[INFO] First three leaves: {first_three_leaves}")
         print(f"[INFO] Last three leaves: {last_three_leaves}")
+
+        # Task #2
+        task2(tree_root)
     except KeyboardInterrupt:
         print("[ERROR] Failed: script interrupted by user (CTRL + C)")
         stop()

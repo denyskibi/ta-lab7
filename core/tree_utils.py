@@ -78,3 +78,34 @@ class TreeUtils:
         leaves = self.find_leaves(root.left) + self.find_leaves(root.right)
         return leaves
 
+    def find_paths_with_sum_from_node(self, node, target_sum, current_path, all_paths) -> None:
+        if not node:
+            return
+
+        # Step #1: Додаємо поточний вузол до шляху
+        current_path.append(node.val)
+
+        # Step #2: Перевіряємо, чи поточний шлях відповідає цільовій сумі
+        if sum(current_path) == target_sum:
+            all_paths.append(list(current_path))
+
+        # Step #3: Продовжуємо пошук по лівому та правому піддеревам
+        self.find_paths_with_sum_from_node(node.left, target_sum, current_path, all_paths)
+        self.find_paths_with_sum_from_node(node.right, target_sum, current_path, all_paths)
+
+        # Step #4: Видаляємо поточний вузол з шляху перед поверненням до попереднього вузла
+        current_path.pop()
+
+    def find_all_paths_with_sum(self, root, target_sum) -> list:
+        all_paths = []
+
+        # Step #1: Запускаємо функцію для кожного вузла як початкової точки шляху
+        def find_from_each_node(node):
+            if not node:
+                return
+            self.find_paths_with_sum_from_node(node, target_sum, [], all_paths)
+            find_from_each_node(node.left)
+            find_from_each_node(node.right)
+
+        find_from_each_node(root)
+        return all_paths
